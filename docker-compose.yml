@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  frontend:
+    image: vue
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8000:80
