@@ -1,5 +1,10 @@
 # vue-project
 
+## Development
+
+For a deployment with an extern backend framework (e.g. Flask, actix) see
+[Deployment](https://cli.vuejs.org/guide/deployment.html)
+
 ## Manage Vue App
 ```
 vue ui
