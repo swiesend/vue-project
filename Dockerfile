@@ -1,4 +1,3 @@
-# install stage
 FROM ubuntu:18.04 as install-stage
 MAINTAINER sebastian@wiesendahl.de
 
@@ -17,8 +16,7 @@ RUN apt-get -y install nodejs
 RUN node --version
 RUN npm --version
 
-# -  Building for production...
-# Error: Failed to launch chrome!
+# Building for production... Error: Failed to launch chrome!
 RUN apt-get -y install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1\
     libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0\
     libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcomposite-dev libxcursor1\
@@ -29,12 +27,8 @@ ENV NODE_ENV production
 WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-# RUN npm install --production --silent && mv node_modules ../
-# RUN npm install -g @vue/cli@^3.4.0
-# RUN rm -rf node_modules && rm ./package-lock.json
 RUN npm install --only=dev
 RUN npm install
-# RUN mv node_modules ../
 COPY . .
 
 # build stage
@@ -42,10 +36,7 @@ FROM install-stage as build-stage
 RUN npm run build
 
 # production stage
-# 1.15.8
-# 1.15.8-alpine
 FROM nginx:1.15.8-alpine as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-# COPY /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
