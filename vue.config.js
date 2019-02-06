@@ -36,11 +36,15 @@ module.exports = {
       // see also: https://cli.vuejs.org/guide/webpack.html#simple-configuration
       // see also: https://ssr.vuejs.org/#ssr-vs-prerendering
       // see also: https://github.com/chrisvfritz/prerender-spa-plugin
+      // 
+      // TODO: infer all routes, maybe those solutions can help:
+      // see https://github.com/eldarc/vue-prerender
+      // see https://github.com/rendora/rendora
       config.plugins.push(
         new PrerenderSPAPlugin({
-          staticDir: path.join(__dirname, 'dist'), // TODO: reference to outputDir
+          staticDir: path.join(__dirname, 'dist'), // TODO: make use of outputDir
           // routes: [ '/', '/about', '/some/deep/nested/route' ],
-          routes: [ '/' ], // TODO infer all routes
+          routes: [ '/' ],
         })
       )
 
