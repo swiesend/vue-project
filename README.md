@@ -1,5 +1,10 @@
 # vue-project
 
+## Manage Vue App
+```
+vue ui
+```
+
 ## Project setup
 ```
 npm install
