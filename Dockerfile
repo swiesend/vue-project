@@ -28,6 +28,12 @@ RUN apt-get -y install gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libc
 ENV NODE_ENV production
 WORKDIR /app
 
+# npm usage
+# see: https://docs.npmjs.com/cli/install
+# see: https://docs.npmjs.com/cli/shrinkwrap
+# see: https://docs.npmjs.com/files/package.json
+# see: https://docs.npmjs.com/files/package-lock.json
+# see: https://docs.npmjs.com/files/shrinkwrap.json
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
 RUN npm install --only=dev
 RUN npm install
