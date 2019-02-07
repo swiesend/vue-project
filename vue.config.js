@@ -27,6 +27,17 @@ module.exports = {
   // configureWebpack: Function
   configureWebpack: config => {
 
+    // see: https://github.com/KingZhang/markdown-html-webpack-plugin
+    const markdownPlugin = require('markdown-html-webpack-plugin');
+    config.plugins.push(
+      new markdownPlugin({
+          filePath: '../src/assets/content/', // '../inputPath',
+          exportPath: '../src/assets/content/', // '../public/outPath/',
+          isEncodeName: false, // if need to encode file name, like chinese
+          // template: '../public/markdown.html'
+        })
+    )
+
     if (process.env.NODE_ENV === 'production') {
       const path = require('path');
       const PrerenderSPAPlugin = require('prerender-spa-plugin');
@@ -44,7 +55,7 @@ module.exports = {
         new PrerenderSPAPlugin({
           staticDir: path.join(__dirname, 'dist'), // TODO: make use of outputDir
           // routes: [ '/', '/about', '/some/deep/nested/route' ],
-          routes: [ '/' ],
+          routes: [ '/', '/about' ],
         })
       )
 
@@ -62,36 +73,61 @@ module.exports = {
   // see also: https://cli.vuejs.org/guide/css.html#css-modules
   // chainWebpack: Function
   chainWebpack: config => {
-    images = config.module.rule('images')
 
-    // add image optimization
-    // see https://github.com/tcoopman/image-webpack-loader
-    images
-      .use('file-loader')
-      .loader('image-webpack-loader')
-      .tap(options => {
-        return {
-          mozjpeg: {
-            quality: 65,
-            progressive: true
-          },
-          optipng: {
-            optimizationLevel: 7, // levels: [0-7]
-            interlaced: false
-          },
-          pngquant:{
-            quality: "65-90",
-            speed: 4
-          },
-          gifsicle: {
-            optimizationLevel: 3, // levels: [1-3]
-            interlaced: false
-          },
-          webp: {
-            quality: 75
-          }
-        }
+    config.module
+      .rule('html')
+      .test('/\.html$/,')
+      .use('html-loader')
+      .loader('html-loader')
+
+    const marked = require("marked");
+    const renderer = new marked.Renderer();
+    config.module
+      .rule('markdown')
+      .test('/\.md$/,')
+      .use('html-loader')
+      .loader('html-loader')
+      
+    config.module
+      .rule('markdown')
+      .use('markdown-loader')
+      .loader('markdown-loader')
+      .options({
+          pedantic: true,
+          renderer
       })
+
+    if (process.env.NODE_ENV === 'production') {
+
+      // image optimization
+      // see https://github.com/tcoopman/image-webpack-loader
+      images = config.module.rule('images')
+      images
+        .use('file-loader')
+        .loader('image-webpack-loader')
+        .options({
+            mozjpeg: {
+              quality: 65,
+              progressive: true
+            },
+            optipng: {
+              optimizationLevel: 7, // levels: [0-7]
+              interlaced: false
+            },
+            pngquant:{
+              quality: "65-90",
+              speed: 4
+            },
+            gifsicle: {
+              optimizationLevel: 3, // levels: [1-3]
+              interlaced: false
+            },
+            webp: {
+              quality: 75
+            }
+        })
+      } // end-if
+
   }
 
 }
