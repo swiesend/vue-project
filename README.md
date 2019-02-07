@@ -1,5 +1,15 @@
 # vue-project
 
+## Getting started
+
+Make sure you have installed [`docker`](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [`docker-compose`](https://docs.docker.com/compose/install/).
+
+```sh
+docker-compose up
+```
+
+**NOTE:** Building the docker image the frist time can take a while.
+
 ## Development
 
 ### Deployment
