@@ -1,29 +1,29 @@
 <template>
     <div>
-        <Markdown file="file"/>
-        <Markdown files="files"/>
-        <Markdown md="raw"/>
+        <br>
+        First Markdown from one file:<br>
+        <Markdown :file="file"/><br>
+        Second Markdown joined from two files:<br>
+        <Markdown :files="files"/><br>
+        Third Markdown from raw input:<br>
+        <Markdown :raw="raw"/><br>
     </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Markdown from '@/components/Markdown.vue'
-
-// content = require('@/assets/content/example.html');
-// content = "<div>inserted</div>"
+import Markdown from '@/components/render/Markdown.vue'
 
 export default {
-  name: 'Markdown Example',
+  name: 'MarkdownExample',
   data() {
     return {
-        file: "example.md",
-        files: ["example.1.md", "example.2.md"],
-        raw: "# Title\na new paragraph\nanother paragraph\nA listing:\n\n*first\n\*second\n*third"
+      file: "example.md",
+      files: ["example.1.md", "example.2.md"],
+      raw: "# Title\na new paragraph\n\nanother paragraph\n\nA listing:\n\n* first\n* second\n* third"
     }
   },
   components: {
     Markdown
-  }
+  },
 }
 </script>

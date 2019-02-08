@@ -62,3 +62,7 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+TODO:
+this sounds interesting...
+"@vuepress/markdown-loader": "^1.0.0-alpha.0",

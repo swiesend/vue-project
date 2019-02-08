@@ -25,7 +25,8 @@
     "markdown-loader": "^5.0.0",
     "path": "^0.12.7",
     "prerender-spa-plugin": "^3.4.0",
-    "remarkable": "^1.7.1",
+    "raw-loader": "^1.0.0",
+    "request": "^2.88.0",
     "vue-template-compiler": "^2.5.21"
   },
   "eslintConfig": {
@@ -37,7 +38,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

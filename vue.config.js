@@ -8,7 +8,7 @@ module.exports = {
 
   // see: https://cli.vuejs.org/config/#outputdir
   outputDir: 'dist', // default: 'dist'
-  
+
   // see: https://cli.vuejs.org/config/#runtimecompiler
   // see also: https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
   runtimeCompiler: undefined,
@@ -31,11 +31,11 @@ module.exports = {
     const markdownPlugin = require('markdown-html-webpack-plugin');
     config.plugins.push(
       new markdownPlugin({
-          filePath: '../src/assets/content/', // '../inputPath',
-          exportPath: '../src/assets/content/', // '../public/outPath/',
-          isEncodeName: false, // if need to encode file name, like chinese
-          // template: '../public/markdown.html'
-        })
+        filePath: '../src/assets/content/', // '../inputPath',
+        exportPath: '../src/assets/content/', // '../public/outPath/',
+        isEncodeName: false, // if need to encode file name, like chinese
+        // template: '../public/markdown.html'
+      })
     )
 
     if (process.env.NODE_ENV === 'production') {
@@ -55,7 +55,7 @@ module.exports = {
         new PrerenderSPAPlugin({
           staticDir: path.join(__dirname, 'dist'), // TODO: make use of outputDir
           // routes: [ '/', '/about', '/some/deep/nested/route' ],
-          routes: [ '/', '/about' ],
+          routes: ['/', '/about'],
         })
       )
 
@@ -74,22 +74,48 @@ module.exports = {
   // chainWebpack: Function
   chainWebpack: config => {
 
+    // vue inspect --rule text
+    config.module
+      .rule('text')
+      .test(/\.txt$/)
+      .use('raw-loader')
+      .loader('raw-loader')
+
+    // vue inspect --rule html
     config.module
       .rule('html')
       .test('/\.html$/,')
       .use('html-loader')
       .loader('html-loader')
 
+    // vue inspect --rule markdown
+    const markdownRule = config.module
+      .rule('markdown')
+      .test(/\.md$/)
+
+    // markdownRule
+    //   .use('vue-loader')
+    //   .loader('vue-loader')
+    //   .options({/* ... */ })
+
+    // markdownRule
+    //   .use('markdown-loader')
+    //   .loader(require.resolve('@vuepress/markdown-loader'))
+    //   .options({
+    //     /* instance created by @vuepress/markdown */
+    //     markdown: require.resolve('@vuepress/markdown-loader'),
+    //     /* root source directory of your docs */
+    //     sourceDir: "src/assets/content",
+    //   })
+
     const marked = require("marked");
     const renderer = new marked.Renderer();
-    config.module
-      .rule('markdown')
-      .test('/\.md$/,')
+
+    markdownRule
       .use('html-loader')
       .loader('html-loader')
-      
-    config.module
-      .rule('markdown')
+
+    markdownRule
       .use('markdown-loader')
       .loader('markdown-loader')
       .options({
@@ -106,27 +132,27 @@ module.exports = {
         .use('file-loader')
         .loader('image-webpack-loader')
         .options({
-            mozjpeg: {
-              quality: 65,
-              progressive: true
-            },
-            optipng: {
-              optimizationLevel: 7, // levels: [0-7]
-              interlaced: false
-            },
-            pngquant:{
-              quality: "65-90",
-              speed: 4
-            },
-            gifsicle: {
-              optimizationLevel: 3, // levels: [1-3]
-              interlaced: false
-            },
-            webp: {
-              quality: 75
-            }
+          mozjpeg: {
+            quality: 65,
+            progressive: true
+          },
+          optipng: {
+            optimizationLevel: 7, // levels: [0-7]
+            interlaced: false
+          },
+          pngquant: {
+            quality: "65-90",
+            speed: 4
+          },
+          gifsicle: {
+            optimizationLevel: 3, // levels: [1-3]
+            interlaced: false
+          },
+          webp: {
+            quality: 75
+          }
         })
-      } // end-if
+    } // end-if
 
   }
 
