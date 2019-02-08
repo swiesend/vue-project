@@ -55,7 +55,7 @@ module.exports = {
         new PrerenderSPAPlugin({
           staticDir: path.join(__dirname, 'dist'), // TODO: make use of outputDir
           // routes: [ '/', '/about', '/some/deep/nested/route' ],
-          routes: ['/', '/about'],
+          routes: ['/', '/about', '/markdown'],
         })
       )
 

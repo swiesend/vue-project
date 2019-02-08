@@ -1,1 +1,3 @@
-this is an example text.
+# title
+
+this is an **example** *text* with markdown syntax.

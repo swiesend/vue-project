@@ -2,16 +2,36 @@
     <div>
         <br>
         First Markdown from one file:<br>
-        <Markdown :file="file"/><br>
+        <markdown :file="file"/><br>
+        <br>
+        <hr>
+        <br>
         Second Markdown joined from two files:<br>
-        <Markdown :files="files"/><br>
+        <markdown :files="files"/><br>
+        <br>
+        <hr>
+        <br>
         Third Markdown from raw input:<br>
-        <Markdown :raw="raw"/><br>
+        <markdown :raw="raw"/><br>
+        <br>
+        <hr>
+        <br>
+        Fourth Markdown from parents input as slot:<br>
+        <markdown>
+This is a text body
+
+
+* list item
+
+This is some code:
+
+    code indention
+</markdown><br>
     </div>
 </template>
 
 <script>
-import Markdown from '@/components/render/Markdown.vue'
+import markdown from '@/components/render/markdown.vue'
 
 export default {
   name: 'MarkdownExample',
@@ -23,7 +43,7 @@ export default {
     }
   },
   components: {
-    Markdown
+    markdown
   },
 }
 </script>

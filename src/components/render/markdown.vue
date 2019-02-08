@@ -1,12 +1,14 @@
 <template>
-    <div class="markdown" v-html="html"></div>
+    <div class="markdown" v-html="html">
+      <slot></slot>
+    </div>
 </template>
 
 <script>
 const marked = require("marked");
 
 export default {
-  name: 'Markdown',
+  name: 'markdown',
   props: {
     file: {
       type: String,
@@ -31,11 +33,12 @@ export default {
     }
   },
   methods: {
-    // getContent(f) {
-    //   // we are in '/src/components/render' thus we have to get back with a relative to get to the assets.
-    //   const ctnt = require("../../assets/content/" + f);
-    //   return ctnt;
-    // }
+    getContent(file) {
+      // we are in '/src/components/render' thus we have to get back with a relative to get to the assets.
+      // FIXME: infinit loop, when requiring a markdown file.
+      // return require("../../assets/content/" + file);
+      return require("../../assets/txt/file.txt");
+    }
   },
   computed: {
     content() {
@@ -43,16 +46,21 @@ export default {
       if (this.file) {
         // markdown += "dummy"
         // markdown += require("../../assets/content/" + this.file)
-        markdown += require("../../assets/content/example.md")
+        markdown += this.getContent(this.file)
       }
       if (this.files) {
-        this.files.forEach(f => {
-          // markdown += this.getContent(f) + "\n\n";
-          markdown += require("../../assets/content/example.md") + "\n\n";
+        this.files.forEach(file => {
+          markdown += this.getContent(file) + "\n\n";
+          // markdown += require("../../assets/content/example.md") + "\n\n";
         });
       }
       if(this.raw) {
         markdown += this.raw
+      }
+      if(this.$slots.default) {
+        this.$slots.default.forEach(item => {
+          markdown += item.text + "\n"
+        })        
       }
       return markdown
     },

@@ -63,6 +63,8 @@ npm run lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+See [Using the New vue-cli 3 to Scaffold Vue.js Apps](https://alligator.io/vuejs/using-new-vue-cli-3/)
+
 TODO:
 this sounds interesting...
 "@vuepress/markdown-loader": "^1.0.0-alpha.0",
