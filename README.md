@@ -1,5 +1,7 @@
 # vue-project
 
+A project to showcase how to merge Vue.js + prerendering + webpack + Docker, to exploit the benefits deploying anywhere and building modular.
+
 ## Getting started
 
 Install the dependencies:
@@ -57,7 +59,7 @@ For common components or ideas check out [Awesome Vue.js](https://github.com/vue
 
 ## Deployment
 
-For a deployment together with an extern backend framework (e.g. Flask, actix) see
+For a deployment together with an external backend framework (e.g. Flask, actix) see
 [Deployment](https://cli.vuejs.org/guide/deployment.html)
 
 ### Compiles and minifies for production
