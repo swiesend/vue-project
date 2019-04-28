@@ -1,6 +1,6 @@
 # vue-project
 
-A project to showcase how to merge Vue.js + prerendering + webpack + Docker, to exploit the benefits deploying anywhere and building modular.
+A project to showcase how to merge Vue.js + prerendering + webpack + Docker, to exploit the benefits of deploying anywhere and building modular.
 
 ## Getting started
 
